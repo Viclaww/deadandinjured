@@ -1,10 +1,10 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { WebSocketServer } from "ws";
 
 let wbs: WebSocketServer | undefined;
 let playersReady = 0;
 
-export function GET(req: NextApiRequest, res: NextApiResponse) {
+export function GET(req: NextRequest, res: NextResponse) {
   if (!wbs) {
     wbs = new WebSocketServer({ noServer: true });
     wbs.on("connection", (socket) => {
@@ -40,7 +40,10 @@ export function GET(req: NextApiRequest, res: NextApiResponse) {
     });
   }
 
-  res.status(200).json({ message: "WebSocket server setup" });
+  return NextResponse.json(
+    { message: "WebSocket server setup" },
+    { status: 200 }
+  );
   return { message: "the" };
 }
 
