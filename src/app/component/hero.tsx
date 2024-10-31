@@ -43,9 +43,12 @@ export default function Hero() {
   };
 
   useEffect(() => {
+    const protocol = window.location.protocol === "https:" ? "wss" : "ws";
     // Function to initialize WebSocket connection
     const initWebSocket = () => {
-      const ws = new WebSocket(`ws://${window.location.host}/server/socket`);
+      const ws = new WebSocket(
+        `${protocol}://${window.location.host}/server/socket`
+      );
       setSocket(ws);
 
       ws.onopen = () => {
