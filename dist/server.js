@@ -5,7 +5,7 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJS = (cb, mod) => function __require() {
+var __commonJS = (cb, mod) => function __require2() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var __copyProps = (to, from, except, desc) => {
@@ -58,7 +58,7 @@ var require_stream = __commonJS({
         const data = !isBinary && duplex._readableState.objectMode ? msg.toString() : msg;
         if (!duplex.push(data)) ws.pause();
       });
-      ws.once("error", function error(err) {
+      ws.once("error", function error2(err) {
         if (duplex.destroyed) return;
         terminateOnDestroy = false;
         duplex.destroy(err);
@@ -74,7 +74,7 @@ var require_stream = __commonJS({
           return;
         }
         let called = false;
-        ws.once("error", function error(err2) {
+        ws.once("error", function error2(err2) {
           called = true;
           callback(err2);
         });
@@ -1010,26 +1010,26 @@ var require_receiver = __commonJS({
         }
         const buf = this.consume(2);
         if ((buf[0] & 48) !== 0) {
-          const error = this.createError(
+          const error2 = this.createError(
             RangeError,
             "RSV2 and RSV3 must be clear",
             true,
             1002,
             "WS_ERR_UNEXPECTED_RSV_2_3"
           );
-          cb(error);
+          cb(error2);
           return;
         }
         const compressed = (buf[0] & 64) === 64;
         if (compressed && !this._extensions[PerMessageDeflate.extensionName]) {
-          const error = this.createError(
+          const error2 = this.createError(
             RangeError,
             "RSV1 must be clear",
             true,
             1002,
             "WS_ERR_UNEXPECTED_RSV_1"
           );
-          cb(error);
+          cb(error2);
           return;
         }
         this._fin = (buf[0] & 128) === 128;
@@ -1037,109 +1037,109 @@ var require_receiver = __commonJS({
         this._payloadLength = buf[1] & 127;
         if (this._opcode === 0) {
           if (compressed) {
-            const error = this.createError(
+            const error2 = this.createError(
               RangeError,
               "RSV1 must be clear",
               true,
               1002,
               "WS_ERR_UNEXPECTED_RSV_1"
             );
-            cb(error);
+            cb(error2);
             return;
           }
           if (!this._fragmented) {
-            const error = this.createError(
+            const error2 = this.createError(
               RangeError,
               "invalid opcode 0",
               true,
               1002,
               "WS_ERR_INVALID_OPCODE"
             );
-            cb(error);
+            cb(error2);
             return;
           }
           this._opcode = this._fragmented;
         } else if (this._opcode === 1 || this._opcode === 2) {
           if (this._fragmented) {
-            const error = this.createError(
+            const error2 = this.createError(
               RangeError,
               `invalid opcode ${this._opcode}`,
               true,
               1002,
               "WS_ERR_INVALID_OPCODE"
             );
-            cb(error);
+            cb(error2);
             return;
           }
           this._compressed = compressed;
         } else if (this._opcode > 7 && this._opcode < 11) {
           if (!this._fin) {
-            const error = this.createError(
+            const error2 = this.createError(
               RangeError,
               "FIN must be set",
               true,
               1002,
               "WS_ERR_EXPECTED_FIN"
             );
-            cb(error);
+            cb(error2);
             return;
           }
           if (compressed) {
-            const error = this.createError(
+            const error2 = this.createError(
               RangeError,
               "RSV1 must be clear",
               true,
               1002,
               "WS_ERR_UNEXPECTED_RSV_1"
             );
-            cb(error);
+            cb(error2);
             return;
           }
           if (this._payloadLength > 125 || this._opcode === 8 && this._payloadLength === 1) {
-            const error = this.createError(
+            const error2 = this.createError(
               RangeError,
               `invalid payload length ${this._payloadLength}`,
               true,
               1002,
               "WS_ERR_INVALID_CONTROL_PAYLOAD_LENGTH"
             );
-            cb(error);
+            cb(error2);
             return;
           }
         } else {
-          const error = this.createError(
+          const error2 = this.createError(
             RangeError,
             `invalid opcode ${this._opcode}`,
             true,
             1002,
             "WS_ERR_INVALID_OPCODE"
           );
-          cb(error);
+          cb(error2);
           return;
         }
         if (!this._fin && !this._fragmented) this._fragmented = this._opcode;
         this._masked = (buf[1] & 128) === 128;
         if (this._isServer) {
           if (!this._masked) {
-            const error = this.createError(
+            const error2 = this.createError(
               RangeError,
               "MASK must be set",
               true,
               1002,
               "WS_ERR_EXPECTED_MASK"
             );
-            cb(error);
+            cb(error2);
             return;
           }
         } else if (this._masked) {
-          const error = this.createError(
+          const error2 = this.createError(
             RangeError,
             "MASK must be clear",
             true,
             1002,
             "WS_ERR_UNEXPECTED_MASK"
           );
-          cb(error);
+          cb(error2);
           return;
         }
         if (this._payloadLength === 126) this._state = GET_PAYLOAD_LENGTH_16;
@@ -1174,14 +1174,14 @@ var require_receiver = __commonJS({
         const buf = this.consume(8);
         const num = buf.readUInt32BE(0);
         if (num > Math.pow(2, 53 - 32) - 1) {
-          const error = this.createError(
+          const error2 = this.createError(
             RangeError,
             "Unsupported WebSocket frame: payload length > 2^53 - 1",
             false,
             1009,
             "WS_ERR_UNSUPPORTED_DATA_PAYLOAD_LENGTH"
           );
-          cb(error);
+          cb(error2);
           return;
         }
         this._payloadLength = num * Math.pow(2, 32) + buf.readUInt32BE(4);
@@ -1197,14 +1197,14 @@ var require_receiver = __commonJS({
         if (this._payloadLength && this._opcode < 8) {
           this._totalPayloadLength += this._payloadLength;
           if (this._totalPayloadLength > this._maxPayload && this._maxPayload > 0) {
-            const error = this.createError(
+            const error2 = this.createError(
               RangeError,
               "Max payload size exceeded",
               false,
               1009,
               "WS_ERR_UNSUPPORTED_MESSAGE_LENGTH"
             );
-            cb(error);
+            cb(error2);
             return;
           }
         }
@@ -1271,14 +1271,14 @@ var require_receiver = __commonJS({
           if (buf.length) {
             this._messageLength += buf.length;
             if (this._messageLength > this._maxPayload && this._maxPayload > 0) {
-              const error = this.createError(
+              const error2 = this.createError(
                 RangeError,
                 "Max payload size exceeded",
                 false,
                 1009,
                 "WS_ERR_UNSUPPORTED_MESSAGE_LENGTH"
               );
-              cb(error);
+              cb(error2);
               return;
             }
             this._fragments.push(buf);
@@ -1329,14 +1329,14 @@ var require_receiver = __commonJS({
         } else {
           const buf = concat(fragments, messageLength);
           if (!this._skipUTF8Validation && !isValidUTF8(buf)) {
-            const error = this.createError(
+            const error2 = this.createError(
               Error,
               "invalid UTF-8 sequence",
               true,
               1007,
               "WS_ERR_INVALID_UTF8"
             );
-            cb(error);
+            cb(error2);
             return;
           }
           if (this._state === INFLATING || this._allowSynchronousEvents) {
@@ -1368,14 +1368,14 @@ var require_receiver = __commonJS({
           } else {
             const code = data.readUInt16BE(0);
             if (!isValidStatusCode(code)) {
-              const error = this.createError(
+              const error2 = this.createError(
                 RangeError,
                 `invalid status code ${code}`,
                 true,
                 1002,
                 "WS_ERR_INVALID_CLOSE_CODE"
               );
-              cb(error);
+              cb(error2);
               return;
             }
             const buf = new FastBuffer(
@@ -1384,14 +1384,14 @@ var require_receiver = __commonJS({
               data.length - 2
             );
             if (!this._skipUTF8Validation && !isValidUTF8(buf)) {
-              const error = this.createError(
+              const error2 = this.createError(
                 Error,
                 "invalid UTF-8 sequence",
                 true,
                 1007,
                 "WS_ERR_INVALID_UTF8"
               );
-              cb(error);
+              cb(error2);
               return;
             }
             this._loop = false;
@@ -2100,10 +2100,10 @@ var require_event_target = __commonJS({
             callListener(handler, this, event);
           };
         } else if (type === "error") {
-          wrapper = function onError(error) {
+          wrapper = function onError(error2) {
             const event = new ErrorEvent("error", {
-              error,
-              message: error.message
+              error: error2,
+              message: error2.message
             });
             event[kTarget] = this;
             callListener(handler, this, event);
@@ -2322,7 +2322,7 @@ var require_websocket = __commonJS({
     var tls = require("tls");
     var { randomBytes, createHash } = require("crypto");
     var { Duplex, Readable } = require("stream");
-    var { URL } = require("url");
+    var { URL: URL2 } = require("url");
     var PerMessageDeflate = require_permessage_deflate();
     var Receiver2 = require_receiver();
     var Sender2 = require_sender();
@@ -2812,11 +2812,11 @@ var require_websocket = __commonJS({
         );
       }
       let parsedUrl;
-      if (address instanceof URL) {
+      if (address instanceof URL2) {
         parsedUrl = address;
       } else {
         try {
-          parsedUrl = new URL(address);
+          parsedUrl = new URL2(address);
         } catch (e) {
           throw new SyntaxError(`Invalid URL: ${address}`);
         }
@@ -2953,7 +2953,7 @@ var require_websocket = __commonJS({
           req.abort();
           let addr;
           try {
-            addr = new URL(location, address);
+            addr = new URL2(location, address);
           } catch (e) {
             const err = new SyntaxError(`Invalid URL: ${location}`);
             emitErrorAndClose(websocket, err);
@@ -3638,9 +3638,144 @@ var import_sender = __toESM(require_sender(), 1);
 var import_websocket = __toESM(require_websocket(), 1);
 var import_websocket_server = __toESM(require_websocket_server(), 1);
 
+// node_modules/next-ws/dist/chunk-6VWOYYWX.mjs
+var __defProp2 = Object.defineProperty;
+var __name = (target, value) => __defProp2(target, "name", { value, configurable: true });
+var __require = /* @__PURE__ */ ((x) => typeof require < "u" ? require : typeof Proxy < "u" ? new Proxy(x, {
+  get: (a, b) => (typeof require < "u" ? require : a)[b]
+}) : x)(function(x) {
+  if (typeof require < "u") return require.apply(this, arguments);
+  throw Error('Dynamic require of "' + x + '" is not supported');
+});
+
+// node_modules/next-ws/dist/server/index.mjs
+var logger3 = __toESM(require("next/dist/build/output/log"), 1);
+function getEnvironmentMeta() {
+  let isCustomServer = !process.title.startsWith("next-"), isMainProcess = process.env.NEXT_WS_MAIN_PROCESS === "1", isDevelopment = process.env.NODE_ENV === "development";
+  return { isCustomServer, isMainProcess, isDevelopment };
+}
+__name(getEnvironmentMeta, "getEnvironmentMeta");
+function resolveFilename(nextServer, pathname) {
+  let pathParts = pathname.split("/"), appRoutes = {
+    // @ts-expect-error - appPathRoutes is protected
+    ...nextServer.appPathRoutes,
+    // @ts-expect-error - getAppPathRoutes is protected
+    ...nextServer.getAppPathRoutes()
+  };
+  for (let [key, [path]] of Object.entries(appRoutes))
+    if (key.includes("[") && key.includes("]")) {
+      let keyParts = key.split("/");
+      if (keyParts.length !== pathParts.length) continue;
+      for (let i = 0; i < keyParts.length; i++) {
+        let keyPart = keyParts[i], pathPart = pathParts[i];
+        if (keyPart.includes("[") && keyPart.includes("]") && (keyParts[i] = pathPart), keyParts[i] !== pathParts[i]) break;
+        if (i === keyParts.length - 1 && path?.endsWith("/route"))
+          return path;
+      }
+    } else {
+      if (key !== pathname) continue;
+      return path?.endsWith("/route") ? path : null;
+    }
+  return null;
+}
+__name(resolveFilename, "resolveFilename");
+async function getPageModule(nextServer, filename) {
+  try {
+    "hotReloader" in nextServer ? await nextServer.hotReloader?.ensurePage({
+      page: filename,
+      clientOnly: false
+    }) : "ensurePage" in nextServer ? await nextServer.ensurePage({ page: filename, clientOnly: false }) : logger3.warnOnce(
+      "[next-ws] unable to ensure page, you may need to open the route in your browser first so Next.js compiles it"
+    );
+  } catch {
+  }
+  let buildPagePath = nextServer.getPagePath(filename);
+  return __require(buildPagePath);
+}
+__name(getPageModule, "getPageModule");
+function mainProcessOnly(fnName) {
+  if (process.env.NEXT_WS_SKIP_ENVIRONMENT_CHECK === "1") return;
+  let meta = getEnvironmentMeta();
+  if (meta.isMainProcess)
+    meta.isCustomServer || logger3.warnOnce(
+      `[next-ws] Caution: The function '${fnName}' was invoked without a custom server.
+This could lead to unintended behaviour, especially if you're attempting to interact with the WebSocket server outside of a SOCKET handler.
+Please note, while such configurations might function during development, they will fail in production. This is because Next.js employs a worker process for routing in production, which do not have access to the WebSocket server on the main process.
+You can resolve this by using a custom server.`
+    );
+  else throw new Error(
+    `[next-ws] Attempt to invoke '${fnName}' outside the main process.
+You may be attempting to interact with the WebSocket server outside of a SOCKET handler. This will fail in production, as Next.js employs a worker process for routing, which do not have access to the WebSocket server on the main process.
+You can resolve this by using a custom server.`
+  );
+}
+__name(mainProcessOnly, "mainProcessOnly");
+var NextWsHttpServer = Symbol.for("NextWs_HttpServer");
+function setHttpServer(server) {
+  Reflect.set(globalThis, NextWsHttpServer, server);
+}
+__name(setHttpServer, "setHttpServer");
+function getHttpServer() {
+  return mainProcessOnly("getHttpServer"), Reflect.get(globalThis, NextWsHttpServer);
+}
+__name(getHttpServer, "getHttpServer");
+function useHttpServer(server) {
+  let existing = getHttpServer();
+  return existing || (server && setHttpServer(server), server);
+}
+__name(useHttpServer, "useHttpServer");
+var NextWsWebSocketServer = Symbol.for("NextWs_WebSocketServer");
+function setWebSocketServer(wsServer) {
+  Reflect.set(globalThis, NextWsWebSocketServer, wsServer);
+}
+__name(setWebSocketServer, "setWebSocketServer");
+function getWebSocketServer() {
+  return mainProcessOnly("getWebSocketServer"), Reflect.get(globalThis, NextWsWebSocketServer);
+}
+__name(getWebSocketServer, "getWebSocketServer");
+function useWebSocketServer(wsServer) {
+  let existing = getWebSocketServer();
+  return existing || (wsServer && setWebSocketServer(wsServer), wsServer);
+}
+__name(useWebSocketServer, "useWebSocketServer");
+function setupWebSocketServer(nextServer) {
+  process.env.NEXT_WS_MAIN_PROCESS = String(1), process.env.NEXT_WS_SKIP_ENVIRONMENT_CHECK = String(1);
+  let httpServer = useHttpServer(nextServer.serverOptions?.httpServer), wsServer = useWebSocketServer(new import_websocket_server.default({ noServer: true }));
+  if (delete process.env.NEXT_WS_SKIP_ENVIRONMENT_CHECK, !httpServer)
+    return logger3.error("[next-ws] was not able to find the HTTP server");
+  if (!wsServer)
+    return logger3.error("[next-ws] was not able to find the WebSocket server");
+  logger3.ready("[next-ws] has started the WebSocket server"), httpServer.on("upgrade", async (request, socket, head) => {
+    let pathname = new URL(request.url ?? "", "ws://next").pathname;
+    if (pathname.startsWith("/_next")) return;
+    let filename = resolveFilename(nextServer, pathname);
+    if (!filename)
+      return logger3.error(`[next-ws] could not find module for page ${pathname}`), socket.destroy();
+    let pageModule = await getPageModule(nextServer, filename);
+    if (!pageModule)
+      return logger3.error(`[next-ws] could not find module for page ${pathname}`), socket.destroy();
+    let socketHandler = pageModule?.routeModule?.userland?.SOCKET;
+    return !socketHandler || typeof socketHandler != "function" ? (logger3.error(`[next-ws] ${pathname} does not export a SOCKET handler`), socket.destroy()) : wsServer.handleUpgrade(request, socket, head, (c, r) => {
+      let dispose = socketHandler(c, r, wsServer);
+      typeof dispose == "function" && c.once("close", () => dispose());
+    });
+  });
+}
+__name(setupWebSocketServer, "setupWebSocketServer");
+function hookNextNodeServer() {
+  setupWebSocketServer(this);
+}
+__name(hookNextNodeServer, "hookNextNodeServer");
+function verifyPatch() {
+  throw new Error(
+    "The 'verifyPatch' function has been deprecated in favour of the `npx next-ws-cli@latest verify` command."
+  );
+}
+__name(verifyPatch, "verifyPatch");
+
 // server.js
 var dev = process.env.NODE_ENV !== "production";
-var app = (0, import_next.default)({ dev, turbopack: true, watch: true });
+var app = (0, import_next.default)({ dev, port: 3e3, turbopack: true, watch: true });
 var handle = app.getRequestHandler();
 var wbs;
 var rooms = {};
@@ -3649,8 +3784,10 @@ app.prepare().then(() => {
     const parsedUrl = (0, import_url.parse)(req.url, true);
     handle(req, res, parsedUrl);
   });
+  setHttpServer(server);
   if (!wbs) {
     wbs = new import_websocket_server.default({ noServer: true });
+    setWebSocketServer(wbs);
     wbs.on("connection", (socket) => {
       console.log("New client connected");
       socket.on("close", (code, reason) => {
