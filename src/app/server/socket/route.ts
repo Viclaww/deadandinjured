@@ -44,7 +44,6 @@ export function GET() {
     { message: "WebSocket server setup" },
     { status: 200 }
   );
-  return { message: "the" };
 }
 
 export const config = {
