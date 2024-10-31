@@ -4,7 +4,7 @@ import { WebSocketServer } from "ws";
 let wbs: WebSocketServer | undefined;
 let playersReady = 0;
 
-export function GET(req: NextRequest, res: NextResponse) {
+export function GET() {
   if (!wbs) {
     wbs = new WebSocketServer({ noServer: true });
     wbs.on("connection", (socket) => {
