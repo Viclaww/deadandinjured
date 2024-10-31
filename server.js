@@ -2,9 +2,10 @@ import { createServer } from "http";
 import { parse } from "url";
 import next from "next";
 import { WebSocketServer } from "ws";
+import { setHttpServer, setWebSockectServer } from "next-ws/server";
 
 const dev = process.env.NODE_ENV !== "production";
-const app = next({ dev, turbopack: true, watch: true });
+const app = next({ dev, port: 3000, turbopack: true, watch: true });
 const handle = app.getRequestHandler();
 
 let wbs;
@@ -15,8 +16,11 @@ app.prepare().then(() => {
     handle(req, res, parsedUrl);
   });
 
+  setHttpServer(server);
+
   if (!wbs) {
     wbs = new WebSocketServer({ noServer: true });
+    setWebSockectServer(wbs);
     wbs.on("connection", (socket) => {
       console.log("New client connected");
       socket.on("close", (code, reason) => {
