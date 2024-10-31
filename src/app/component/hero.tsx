@@ -46,9 +46,7 @@ export default function Hero() {
     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
     // Function to initialize WebSocket connection
     const initWebSocket = () => {
-      const ws = new WebSocket(
-        `${protocol}://${window.location.host}/server/socket`
-      );
+      const ws = new WebSocket(`${protocol}://${window.location.host}/api/ws`);
       setSocket(ws);
 
       ws.onopen = () => {
@@ -168,6 +166,7 @@ export default function Hero() {
         { code: callInput, answer: "" },
       ];
       yourCalledCode.current = updatedYourCalledCode;
+      setCallInput("");
     }
   };
 

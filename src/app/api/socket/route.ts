@@ -41,7 +41,12 @@ export function GET() {
   //   });
   // }
   const wbs = getWebSocketServer();
-  return new Response(JSON.stringify({ clients: wbs.clients.size }), {
+  if (wbs) {
+    return new Response(JSON.stringify({ clients: wbs.clients.size }), {
+      status: 200,
+    });
+  }
+  return new Response("no socket", {
     status: 200,
   });
 }

@@ -3,11 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "npm run bundle && next build",
-    "dev": "npm run bundle && nodemon dist/server.js",
-    "start": "node dist/server.js",
-    "lint": "next lint",
-    "bundle": "esbuild server.js --bundle --platform=node --outdir=dist --external:next"
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "next": "15.0.2",
