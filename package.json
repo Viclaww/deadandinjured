@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm run bundle && next build",
+    "build": "npm run bundle && next build && node dist/server.js",
     "dev": "npm run bundle && node dist/server.js",
     "start": "node dist/server.js",
     "lint": "next lint",
