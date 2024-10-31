@@ -8,7 +8,7 @@
     "dev": "npm run bundle && node dist/server.js",
     "start": "node dist/server.js",
     "lint": "next lint",
-    "bundle": "esbuild server.jz --bundle --platform=node --outdir=dist --external:next*"
+    "bundle": "esbuild server.js --bundle --platform=node --outdir=dist --external:next*"
   },
   "dependencies": {
     "next": "15.0.2",
