@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "npm run bundle && next build && node dist/server.js",
+    "build": "npm run bundle && next build",
     "dev": "npm run bundle && node dist/server.js",
     "start": "node dist/server.js",
     "lint": "next lint",
