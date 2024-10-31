@@ -46,7 +46,9 @@ export default function Hero() {
     const protocol = window.location.protocol === "https:" ? "wss" : "ws";
     // Function to initialize WebSocket connection
     const initWebSocket = () => {
-      const ws = new WebSocket(`${protocol}://${window.location.host}/api/ws`);
+      const ws = new WebSocket(
+        `${protocol}://${window.location.host}/api/socket`
+      );
       setSocket(ws);
 
       ws.onopen = () => {

@@ -1,4 +1,3 @@
-import { Interface } from "node:readline";
 import { WebSocket } from "ws";
 export function GET() {
   const headers = new Headers();

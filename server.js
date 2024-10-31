@@ -171,7 +171,7 @@ app.prepare().then(() => {
     if (pathname === "/_next/webpack-hmr") {
       app.getUpgradeHandler()(request, socket, head);
     }
-    if (pathname === "/api/ws") {
+    if (pathname === "/api/socket") {
       wbs.handleUpgrade(request, socket, head, (ws) => {
         wbs.emit("connection", ws, request);
       });
