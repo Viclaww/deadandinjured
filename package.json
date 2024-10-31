@@ -2,7 +2,6 @@
   "name": "deadandinjured",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "npm run bundle && next build && node dist/server.js",
     "dev": "npm run bundle && node dist/server.js",
