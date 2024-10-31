@@ -49,11 +49,3 @@ export const config = {
     bodyParser: false,
   },
 };
-
-export const upgradeWebSocket = (req: any, socket: any, head: any) => {
-  if (wbs) {
-    wbs.handleUpgrade(req, socket, head, (client) => {
-      wbs?.emit("connection", client, req);
-    });
-  }
-};
