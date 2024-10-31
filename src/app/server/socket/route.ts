@@ -40,10 +40,7 @@ export function GET() {
     });
   }
 
-  return NextResponse.json(
-    { message: "WebSocket server setup" },
-    { status: 200 }
-  );
+  return new Response("hmmmm", { status: 200 });
 }
 
 export const config = {
